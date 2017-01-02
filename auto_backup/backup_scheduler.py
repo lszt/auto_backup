@@ -179,9 +179,11 @@ password=passwordLogin,port=portHost)
                     portHost = rec.sftpport
                     usernameLogin = rec.sftpusername
                     passwordLogin = rec.sftppassword
+                    cnopts = pysftp.CnOpts()
+                    cnopts.hostkeys = None    # disable host key checking.
                     #Connect with external server over SFTP
                     srv = pysftp.Connection(host=ipHost, username=usernameLogin,
-password=passwordLogin, port=portHost)
+password=passwordLogin, port=portHost, cnopts=cnopts)
                     #set keepalive to prevent socket closed / connection dropped error
                     srv._transport.set_keepalive(30)
                     #Move to the correct directory on external server. If the user made a typo in his path with multiple slashes (/odoo//backups/) it will be fixed by this regex.
